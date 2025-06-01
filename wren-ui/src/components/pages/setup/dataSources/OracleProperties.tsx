@@ -1,4 +1,4 @@
-import { Form, Input, Switch } from 'antd';
+import { Form, Input } from 'antd';   // <- quitamos Switch
 import { ERROR_TEXTS } from '@/utils/error';
 import { FORM_MODE } from '@/utils/enum';
 import { hostValidator } from '@/utils/validator';
