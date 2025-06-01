@@ -7,9 +7,9 @@ interface Props {
   mode?: FORM_MODE;
 }
 
-export default function OracleProperties(props: Props) {
-  const { mode } = props;
+export default function OracleProperties({ mode }: Props) {
   const isEditMode = mode === FORM_MODE.EDIT;
+
   return (
     <>
       <Form.Item
@@ -25,6 +25,7 @@ export default function OracleProperties(props: Props) {
       >
         <Input />
       </Form.Item>
+
       <Form.Item
         label="Host"
         name="host"
@@ -38,6 +39,7 @@ export default function OracleProperties(props: Props) {
       >
         <Input placeholder="10.1.1.1" disabled={isEditMode} />
       </Form.Item>
+
       <Form.Item
         label="Port"
         name="port"
@@ -51,6 +53,7 @@ export default function OracleProperties(props: Props) {
       >
         <Input placeholder="1521" disabled={isEditMode} />
       </Form.Item>
+
       <Form.Item
         label="Username"
         name="user"
@@ -63,6 +66,7 @@ export default function OracleProperties(props: Props) {
       >
         <Input />
       </Form.Item>
+
       <Form.Item
         label="Password"
         name="password"
@@ -76,6 +80,7 @@ export default function OracleProperties(props: Props) {
       >
         <Input.Password placeholder="input password" />
       </Form.Item>
+
       <Form.Item
         label="Database name"
         name="database"
