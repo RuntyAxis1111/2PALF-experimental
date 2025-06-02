@@ -1,5 +1,5 @@
 # reference: https://medium.com/@albertazzir/blazing-fast-python-docker-builds-with-poetry-a78a66f5aed0
-FROM python:3.12.0-bookworm as builder
+FROM python:3.12.0-bookworm AS builder
 
 RUN pip install poetry==1.8.3
 
@@ -14,18 +14,24 @@ COPY pyproject.toml ./
 
 RUN poetry install --without dev,eval,test --no-root && rm -rf $POETRY_CACHE_DIR
 
-FROM python:3.12.0-slim-bookworm as runtime
+# -------- Runtime stage --------
+FROM python:3.12.0-slim-bookworm AS runtime
 
-RUN apt-get update && apt install -y netcat-traditional
+RUN apt-get update && apt-get install -y netcat-traditional
 
 ENV VIRTUAL_ENV=/app/.venv \
     PATH="/app/.venv/bin:$PATH"
 
+# Copiamos el entorno virtual construido en la etapa anterior
 COPY --from=builder ${VIRTUAL_ENV} ${VIRTUAL_ENV}
 
-COPY src src
+# --- código de la aplicación ---
+COPY src src                 # todo el directorio src
+COPY src/config.yaml src/    # ← línea añadida: incluye el YAML explícitamente
+
 COPY entrypoint.sh /app/entrypoint.sh
 COPY pyproject.toml pyproject.toml
+
 RUN chmod +x /app/entrypoint.sh
 
-ENTRYPOINT [ "/app/entrypoint.sh" ]
+ENTRYPOINT ["/app/entrypoint.sh"]
