@@ -1,0 +1,43 @@
+# pipeline ───────────────
+type: pipeline      # ← primer documento
+pipes:
+  - name: chat
+    llm:  litellm_llm.openai/gpt-3.5-turbo
+    embedder: litellm_embedder.openai/text-embedding-3-small
+    document_store: qdrant
+    engine: wren_ui
+
+semantics_description:
+  chat:
+    objective: "General Q&A and SQL generation"
+    schema_version: 1
+
+---                   # ← separador de documento
+
+# LLM provider ────────
+type: llm             # ← segundo documento
+provider: litellm_llm
+models:
+  - model: openai/gpt-3.5-turbo
+    api_base: https://api.openai.com/v1
+    timeout: 120
+    kwargs:
+      temperature: 0.7
+
+---                   # ← separador de documento
+
+# Embedder provider ──
+type: embedder        # ← tercer documento
+provider: litellm_embedder
+models:
+  - model: openai/text-embedding-3-small
+    dimension: 1536
+    timeout: 120
+
+---                   # ← separador de documento
+
+# Document store ─────
+type: document_store  # ← cuarto documento
+provider: qdrant
+location: http://qdrant:6333
+embedding_model_dim: 1536
