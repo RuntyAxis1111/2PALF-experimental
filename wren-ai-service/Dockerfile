@@ -26,8 +26,8 @@ ENV VIRTUAL_ENV=/app/.venv \
 COPY --from=builder ${VIRTUAL_ENV} ${VIRTUAL_ENV}
 
 # --- código de la aplicación ---
-COPY src src                 # todo el directorio src
-COPY src/config.yaml src/    # ← línea añadida: incluye el YAML explícitamente
+COPY src src                 
+COPY src/config.yaml src/    
 
 COPY entrypoint.sh /app/entrypoint.sh
 COPY pyproject.toml pyproject.toml
