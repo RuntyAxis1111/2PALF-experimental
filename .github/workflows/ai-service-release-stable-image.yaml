@@ -113,7 +113,7 @@ jobs:
           platforms: ${{ matrix.arch.platform }}
           labels: ${{ env.WREN_AI_SERVICE_IMAGE }}
           context: ./wren-ai-service
-          file: ./wren-ai-service/docker/Dockerfile
+          file: ./wren-ai-service/Dockerfile
           outputs: type=image,name=${{ env.WREN_AI_SERVICE_IMAGE }},push-by-digest=true,name-canonical=true,push=true
       - name: Export digest
         run: |
