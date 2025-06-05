@@ -1,7 +1,1 @@
-*
-!src
-!src/config.yaml      #  ← NUEVA línea: incluye este archivo concreto
-!entrypoint.sh
-!pyproject.toml
-!config.yaml          #  (opcional, el de la raíz si algún día lo usas)
-src/eval
+
